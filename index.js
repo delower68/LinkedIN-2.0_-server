@@ -68,6 +68,21 @@ async function run() {
         const result = await postCollection.findOne(query);
         res.send(result);
     });
+
+    app.put('/posts/:id' , async(req, res)=>{
+        const id =req.params.id;
+        const filter = {_id: ObjectId(id)};
+        const user = req.body;
+        console.log(user)
+        const option = {upsert: true};
+        const updatedDoc = {
+            $set: {
+                comment: user.comment
+            }
+        }
+        const result = await postCollection.updateOne(filter, updatedDoc, option);
+        res.send(result);
+    })
     
   } finally {
   }
