@@ -30,15 +30,15 @@ async function run() {
       res.send(result);
     });
 
-
-    // get all booking data from mongodb
     app.get("/users", async (req, res) => {
       const email = req.query.email;
-      console.log(email)
       const query = { email: email };
-      const userEmail = await usersCollection.find(query).toArray();
-      res.send(userEmail);
-    });
+      const users = await usersCollection.find(query).toArray();
+      res.send(users);
+      });
+
+    
+    
 
 
     // a single post sent to the database
@@ -55,6 +55,8 @@ async function run() {
       res.send(posts);
     });
 
+
+
     // single post details
     app.get("/posts/:id", async (req, res) => {
       const id = req.params.id;
@@ -62,6 +64,9 @@ async function run() {
       const result = await postCollection.findOne(query);
       res.send(result);
     });
+
+    
+    
 
     app.patch("/posts/:id", async (req, res) => {
       const id = req.params.id;
